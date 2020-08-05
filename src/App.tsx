@@ -16,7 +16,7 @@ interface CommentFormat {
 
 interface State {
   loading: boolean,
-  data: null
+  data: {}
 }
 
 // const App = () => {
@@ -103,77 +103,77 @@ interface State {
 
 //   }
 // }
-// let allData;
-// class App extends React.Component<Props, State> {
-//   private _quizData: null[] = [];
-//   constructor(props: Props) {
-//     super(props);
-//     this.state = {
-//       loading: false,
-//       data: null
-//     }
-//   }
+let allData;
+class App extends React.Component<Props, State> {
+  private _quizData: null[] = [];
+  constructor(props: Props) {
+    super(props);
+    this.state = {
+      loading: false,
+      data: {}
+    }
+  }
 
-//   componentDidMount() {
-//     this.requestData();
-//   }
+  componentDidMount() {
+    this.requestData();
+  }
 
-//   requestData = async (): Promise<void> => {
-//     this.setState({ loading: true });
-//     const API_URL: string = "https://opentdb.com/api.php?amount=10";
+  requestData = async (): Promise<void> => {
+    this.setState({ loading: true });
 
-//     try {
-//       const data = await fetch(API_URL);
-//       const data2 = await data.json();
-//       this._quizData = await data2.results;
-//     } catch {
-//     }
-//     this.setState({
-//       data: this._quizData
-//     });
-//     this.setState({ loading: false });
-//   }
+    let firstQuizData;
 
-//   a = () => {
-//     if (!this._quizData) {
-//       return;
-//     }
-//     allData = this._quizData.map(() => {
+    try {
+      const API_URL: string = "https://www.googleapis.com/books/v1/volumes?q=isbn:4582824773";
+      const data = await fetch(API_URL);
+      const data2 = await data.json();
+      firstQuizData = await data2.results;
+    } catch {
+    }
+    this.setState({
+      data: firstQuizData,
+      loading: false
+    });
+  }
 
-//     });
-//   }
+  render() {
+    return (
+      <div>
+        {this.renderData()}
+        {this.renderRequestButton()}
+      </div>
+    );
+  }
 
-//   render() {
-//     return (
-//       <div>
-//         {this.renderData()}
-//         {this.renderRequestButton()}
-//       </div>
-//     );
-//   }
+  renderData = () => {
+    if (this.state.loading) {
+      return <p>データ取得中...</p>
+    } else if (!this.state.loading && this.state.data === null) {
+      return <p>データなし</p>
+    } else if (!this.state.loading && this.state.data) {
+      const component = this.state.data.map((components, index) => {
+        return (
+          <li key={index}>
+            <p>Q{index + 1}:{components}</p>
+            <p>{components}</p>
+          </li>
+        );
+      });
+      //jsonのデータを取得
+      return (
+        <ul>{component}</ul>
+      );
+    }
+  }
 
-//   renderData = () => {
-//     if (this.state.loading) {
-//       return <p>データ取得中...</p>
-//     } else if (!this.state.loading && this.state.data === null) {
-//       return <p>データなし</p>
-//     } else if (!this.state.loading && this.state.data) {
-//       return (
-//         <ul>
-
-//         </ul>
-//       );
-//     }
-//   }
-
-//   renderRequestButton = () => {
-//     if (this.state.loading) {
-//       return <button disabled={true}>データ取得中</button>
-//     }
-//     else {
-//       return <button onClick={this.requestData}>データを取得する</button>
-//     }
-//   }
-// }
+  renderRequestButton = () => {
+    if (this.state.loading) {
+      return <button disabled={true}>データ取得中</button>
+    }
+    else {
+      return <button onClick={this.requestData}>データを取得する</button>
+    }
+  }
+}
 
 export default App;
