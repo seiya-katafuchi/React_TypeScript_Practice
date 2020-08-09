@@ -3,48 +3,54 @@ import RedText from "../RedText/RedText";
 import Button from "../Button/Button";
 import "./SetUp.css";
 
-type Props = {
-    pageNext: () => void
+type Props = {}
+
+type State = {
+    hour: number;
+    minute: number;
+    message: string;
 }
 
 
-class SetUp extends React.Component<Props> {
+class SetUp extends React.Component<Props, State> {
     constructor(props: Props) {
         super(props);
+
+        this.state = {
+            hour: 0,
+            minute: 0,
+            message: "",
+        }
     }
 
     render() {
         return (
-            <div>
-                <div className="header">
+            <form>
+                <div className="TopContainer">
                     <div className="simekiriTime">
                         <h1>締切時間</h1>
                         <RedText>※必須</RedText>
-                        <input type="text"></input>
-                        <p>h</p>
-                        <input type="text"></input>
-                        <p>m</p>
+                        <label>
+                        <input type="number" maxLength = {2} min = {0} max = {24}></input>h
+                        </label>
+                        <label>
+                            <input type="number" maxLength = {2} min = {0} max = {59}></input>m
+                        </label>
                     </div>
-                    <form>
-                        <p >
-                            <input type="radio" value="and" name="radiogroup2" checked />時刻設定 (24時間)
-                        </p>
-                        <p>
-                            <input type="radio" value="or" name="radiogroup2" />タイマー設定
-                        </p>
-                    </form>
                 </div>
+
                 <hr className="hr"></hr>
-                <div className="footer">
+
+                <div className="bottomContainer">
                     <h1>メッセージ</h1>
                     <RedText>※必須</RedText>
-                    <input type="text"></input>
+                    <textarea maxLength = {50}></textarea>
                     <p>50文字以内</p>
                 </div>
-                <span onClick={this.props.pageNext}>
+                <span>
                     <Button>次へ</Button>
                 </span>
-            </div>
+            </form>
         );
     }
 }

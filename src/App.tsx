@@ -32,17 +32,19 @@ class App extends React.Component<Props, State> {
       return (
         <div>
           <div className="App">
-            <SetUp pageNext={this.pageSwitch}></SetUp>
+            <SetUp></SetUp>
           </div>
         </div>
       );
     } else {
       return (
         <div>
+          <div className = "App">
           ページが切り替わりました
           <span onClick={this.pageSwitch}>
             <Button>戻る</Button>
           </span>
+          </div>
         </div>
       );
     }

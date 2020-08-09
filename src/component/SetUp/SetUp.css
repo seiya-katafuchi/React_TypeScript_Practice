@@ -1,4 +1,4 @@
-.header {
+.TopContainer {
     display: flex;
     justify-content: space-between;
     width: 70%;
@@ -6,31 +6,19 @@
 
 
 .simekiriTime {
-    width: 50%;
+    width: 90%;
     justify-content: space-around;
     display: flex;
     display: -webkit-flex;
 }
 
-.radio {
-    display: -webkit-flex;
-    display: flex;
-    -webkit-justify-content: space-around;
-    justify-content: space-around;
-    -webkit-align-items: flex-start;
-    align-items: flex-start;
-    -webkit-flex-direction: column;
-    flex-direction: column;
-    height: 200px;
-}
 
 .hr {
-    width: 100%;
     margin-top: 100px;
     margin-bottom: 100px;
 }
 
-.footer {
+.bottomContainer {
     display: flex;
     justify-content: space-between;
     width: 70%;
